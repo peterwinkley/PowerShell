@@ -9,7 +9,7 @@ Set-ItemProperty -Path “HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot” -
 #Create function to check that the secure boot key has been set correctly. 
 function Test-SecureBootUpdateValue {
     param(
-        [int]$ExpectedValue = 0x40
+        $ExpectedValiue = "0x40"
     )
 
     try {
@@ -25,7 +25,8 @@ function Test-SecureBootUpdateValue {
 if (Test-SecureBootUpdateValue) {
 #Check Reg Key is correct
     "$timeStamp : [$computerName] Registry value is set correctly." | Out-File -FilePath $logFile -Append
-	Start-ScheduledTask -TaskName “\Microsoft\Windows\PI\Secure-Boot-Update"	
+	Start-ScheduledTask -TaskName “\Microsoft\Windows\PI\Secure-Boot-Update"
+	    "$timeStamp : [$computerName] Secure Boot update Job Successful." | Out-File -FilePath $logFile -Append
 } else {
     "$timeStamp : [$computerName] Registry value is missing or incorrect." | Out-File -FilePath $logFile -Append
 }
