@@ -26,7 +26,7 @@ if (Test-SecureBootUpdateValue) {
 #Check Reg Key is correct
     "$timeStamp : [$computerName] Registry value is set correctly." | Out-File -FilePath $logFile -Append
 	Start-ScheduledTask -TaskName “\Microsoft\Windows\PI\Secure-Boot-Update"
-	    "$timeStamp : [$computerName] Secure Boot update Job Successful." | Out-File -FilePath $logFile -Append
+	"$timeStamp : [$computerName] Secure Boot update Job Successful." | Out-File -FilePath $logFile -Append
 } else {
     "$timeStamp : [$computerName] Registry value is missing or incorrect." | Out-File -FilePath $logFile -Append
 }
