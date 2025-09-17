@@ -3,6 +3,9 @@ $computerName = $env:COMPUTERNAME
 $timeStamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 $logFile = "C:\SecureBootCheck-$computerName.txt"
 
+#create log file
+New-Item $logFile
+
 #Set Reg key to allow windows to update the secure boot certificate
 Set-ItemProperty -Path “HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot” -Name “AvailableUpdates” -Value 0x40
 
