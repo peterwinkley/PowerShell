@@ -17,14 +17,15 @@ function Test-SecureBootUpdateValue {
 
     try {
         $value = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot" -Name "AvailableUpdates").AvailableUpdates
-        return ($value -eq $ExpectedValue)
+        ($value -eq $ExpectedValue)
+        return $true
     }
     catch {
         # If the key or value doesn't exist, return $false
         return $false
     }
 }
-#Check reg key is correct and run scehduled task to update secure boot if it is.
+#Check reg key is correct and run the scheduled task to update secure boot if it is.
 if (Test-SecureBootUpdateValue) {
 #Check Reg Key is correct
     "$timeStamp : [$computerName] Registry value is set correctly." | Out-File -FilePath $logFile -Append
@@ -34,8 +35,8 @@ if (Test-SecureBootUpdateValue) {
     "$timeStamp : [$computerName] Registry value is missing or incorrect." | Out-File -FilePath $logFile -Append
 }
 
-#Run Scheduled task to update the secure boot cert
+#Run scheduled task to update the secure boot cert
 #Start-ScheduledTask -TaskName “\Microsoft\Windows\PI\Secure-Boot-Update”
 
-#Machine will need to rebooted twice to ensure this cert is applied.
+#Machine will need to be rebooted twice to ensure this cert is applied.
 
